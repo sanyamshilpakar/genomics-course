@@ -1,0 +1,16 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+This is rendering hmtl files from the course repository  (https://github.com/jeffreyblanchard/evogeno) for Evolutionary Genomics & Bioinformatics taught at the University of Massachusetts Amherst in Fall 2020 by Prof. Jeffrey Blanchard
+
+![](images/HF_portrait3.png)
+
+## Labs
+
+### R Basics
+
+* 1 : [Introduction to R and Reproducible Research](EvoGeno_Lab1.html)
+* 2 : [git, GitHub and Rstudio project](EvoGeno_Lab2_GitHub.html)
