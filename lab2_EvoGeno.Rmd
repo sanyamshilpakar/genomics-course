@@ -1,0 +1,60 @@
+---
+title: "lab2_EvoGeno"
+author: "Sanyam Shilpakar"
+date: "8/31/2020"
+output: html_document
+bibliography: data/references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Application written in R [@RCoreTeam] using the Shiny framework [@Chang2015].
+
+
+#TEST
+
+```{r}
+sum <- 3 + 3
+print(sum)
+```
+
+#EXERCISE 1
+
+```{r ex1}
+x <- 3
+y <- 15
+print(x+y)
+print(x*y)
+print(x-y)
+print(x/y)
+```
+
+#EXERCISE 2
+
+```{r ex2}
+x <- 2
+y <- 3
+x^5 > y^4
+```
+
+#EXERCISE 3
+
+```{r}
+vector <- c(22,62,148,43,129)
+sum <- sum(vector)
+print(sum)
+rel.freq <- vector / sum
+print(rel.freq)
+```
+
+#EXERCISE 4
+
+```{r}
+nucleotides <- c('A', 'T', 'C', 'G')
+sorted.nucleotides <- sort(nucleotides)
+sorted.nucleotides
+```
+
+#REFERENCE
