@@ -1,0 +1,17 @@
+---
+title: "paper"
+author: "Sanyam Shilpakar"
+date: "8/31/2020"
+output: html_document
+bibliography: data/reference.bib  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Application written in R [@RCoreTeam] using the Shiny framework [@Chang2015].
+
+
+#REFERENCE
