@@ -1,0 +1,182 @@
+---
+title: "Lab3_A"
+author: "Sanyam Shilpakar"
+date: "9/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, eval= FALSE}
+download.file(url = "https://ndownloader.figshare.com/files/2292169",
+              destfile = "data_raw/portal_data_joined.csv")
+```
+
+```{r}
+
+surveys <- read.csv("data_raw/portal_data_joined.csv")
+```
+
+# CONTENT
+```{r}
+head(surveys)
+tail(surveys)
+```
+
+```{r, eval= FALSE}
+View(surveys)
+```
+
+# SUMMARY
+```{r}
+str(surveys)
+summary(surveys)
+```
+    
+
+# SIZE
+```{r}
+dim(surveys)
+ncol(surveys)
+nrow(surveys)
+```
+
+# NAMES
+```{r}
+names(surveys)
+rownames(surveys)
+```
+
+# CHALLENGE QUESTION 1   
+    * the object surveys is of class data.frame.
+    * there are 34786 rows and 13 columns in this object.
+    * there have been 48 recorded species during this survey.
+    
+```{r eval = FALSE}
+surveys$species
+```
+
+
+# CHALLENGE QUESTION 2
+```{r}
+surveys_200 <- surveys[1:200,]
+nrow(surveys_200)
+
+```
+
+# Indexing and Subsetting
+```{r}
+surveys_last <- surveys[nrow(surveys_200),]
+surveys_last
+```
+
+```{r}
+tail(surveys_200)
+```
+
+```{r}
+surveys_middle <- surveys[nrow(surveys_200)/2,]
+surveys_middle
+```
+
+```{r}
+surveys_head <- surveys[-(7: nrow(surveys)), ]
+surveys_head
+```
+
+# FACTORS
+```{r}
+sex <- factor(c("male", "female", "female", "male"))
+levels(sex)
+nlevels(sex)
+```
+
+```{r}
+sex <- factor(sex, levels = c("male", "female"))
+sex
+```
+
+# Converting factors
+```{r}
+as.character(sex)
+```
+
+```{r}
+year_fct <- factor(c(1990, 1983, 1977, 1998, 1990))
+as.numeric(year_fct)               # Wrong! And there is no warning...
+as.numeric(as.character(year_fct)) # Works...
+as.numeric(levels(year_fct))[year_fct]    # The recommended way.
+```
+
+# Renaming Factors
+```{r}
+plot(as.factor(surveys$sex))
+```
+
+```{r}
+# there are about 1700 individuals for which the sex has not been recorded
+sex <- factor(surveys$sex)
+head(sex)
+```
+
+```{r}
+levels(sex)[1] <- "undetermined"
+head(sex)
+```
+
+
+# CHALLENGE QUESTION 3
+```{r}
+levels(sex)[2] <- "female"
+levels(sex)[3] <- "male"
+head(sex)
+```
+
+```{r}
+sex <- factor(sex, levels = c("female", "male", "undetermined"))
+plot(as.factor(sex))
+```
+
+# USING stringAsFactors = FALSE. 
+#When set to TRUE, will change characters into factors when you read a CSV file.
+```{r}
+surveys <- read.csv("data_raw/portal_data_joined.csv", stringsAsFactors = TRUE)
+str(surveys)
+surveys <- read.csv("data_raw/portal_data_joined.csv", stringsAsFactors = FALSE)
+str(surveys)
+## Convert the column "plot_type" into a factor
+surveys$plot_type <- factor(surveys$plot_type)
+str(surveys)
+
+```
+
+# CHALLENGE QUESTION 4
+```{r}
+animal_data <- data.frame(
+          animal = c("dog", "cat", "sea cucumber", "sea urchin"),
+          feel = c("furry", "furry", "squishy", "spiny"),
+          weight = c(45, 8, 1.1, 0.8)
+          )
+```
+
+  * my prediction is that country, climate, temperature, and northern_hemisphere are factors, whereas, has_kangaroo is a numeric.
+  
+```{r}
+country_climate <- data.frame(
+       country = c("Canada", "Panama", "South Africa", "Australia"),
+       climate = c("cold", "hot", "temperate", "hot/temperate"),
+       temperature = c(10, 30, 18, "15"),
+       northern_hemisphere = c(TRUE, TRUE, FALSE, "FALSE"),
+       has_kangaroo = c(FALSE, FALSE, FALSE, 1)
+       )
+
+str(country_climate)
+```
+
+  * it is indeed what I expected.
+  * if we had stringsAsFactors = FALSE, all the variables stated would be character vectors instead of factors.
+  * removing "" from temperature and northern_hemisphere and replace 1 in has_kangaroo to TRUE would ensure that eacg column had the accurate data type.
+
+
