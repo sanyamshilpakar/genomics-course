@@ -9,6 +9,8 @@ This is rendering hmtl files from the course repository  (https://github.com/jef
 ![](/Users/sanyamshilpakar/Desktop/My Docs/R workspace/Day 1 Bio 597GE/Blanchard_EvoGeno/images/HF_portrait3.png)
 
 [lab1_SanyamShilpakar](lab2_EvoGeno.html)
+[Lab3_A](Lab3_A.html)
+[Lab3_B](Lab3_B.html)
 
 ## Labs
 
