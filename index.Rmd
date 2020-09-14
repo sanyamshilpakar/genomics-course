@@ -4,19 +4,25 @@ output:
   pdf_document: default
 ---
 
-This is rendering hmtl files from the course repository  (https://github.com/jeffreyblanchard/evogeno) for Evolutionary Genomics & Bioinformatics taught at the University of Massachusetts Amherst in Fall 2020 by Prof. Jeffrey Blanchard
+![](/Users/sanyamshilpakar/Desktop/My Docs/R workspace/Day 1 Bio 597GE/Blanchard_EvoGeno/images/githubHeader.png)
 
-![](/Users/sanyamshilpakar/Desktop/My Docs/R workspace/Day 1 Bio 597GE/Blanchard_EvoGeno/images/HF_portrait3.png)
+![](/Users/sanyamshilpakar/Desktop/My Docs/R workspace/Day 1 Bio 597GE/Blanchard_EvoGeno/images/evolution.gif)
 
-[lab1_SanyamShilpakar](lab2_EvoGeno.html)
+This is rendering html files from the course repository (https://github.com/sanyamshilpakar/genomics-course) for Evolutionary Genomics & Bioinformatics taught at the University of Massachusetts Amherst in Fall 2020 by Prof. Jeffery Blanchard
+
+# List of labs are found here: 
+
+
+### Labs 1 and 2
+[lab1_SanyamShilpakar](lab2_EvoGeno.html) 
+
+### Lab 3
 [Lab3_A](Lab3_A.html)
+
 [Lab3_B](Lab3_B.html)
+
+### Lab 4
 [lab4_exercises](lab4_exercises.html)
+
 [lab4A](lab4A.html)
 
-## Labs
-
-### R Basics
-
-* 1 : [Introduction to R and Reproducible Research](EvoGeno_Lab1.html)
-* 2 : [git, GitHub and Rstudio project](EvoGeno_Lab2_GitHub.html)
