@@ -11,6 +11,8 @@ This is rendering hmtl files from the course repository  (https://github.com/jef
 [lab1_SanyamShilpakar](lab2_EvoGeno.html)
 [Lab3_A](Lab3_A.html)
 [Lab3_B](Lab3_B.html)
+[lab4_exercises](lab4_exercises.html)
+[lab4A](lab4A.html)
 
 ## Labs
 

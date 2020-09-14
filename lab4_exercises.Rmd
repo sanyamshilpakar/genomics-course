@@ -1,0 +1,281 @@
+---
+title: "lab4"
+author: "Sanyam Shilpakar"
+date: "9/14/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+report_03_11_2020 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-11-2020.csv")) %>%
+  rename(Country_Region = "Country/Region", Province_State = "Province/State")
+```
+
+```{r}
+str(report_03_11_2020)
+```
+
+```{r}
+view(report_03_11_2020)
+```
+
+```{r}
+library(DT)
+datatable(report_03_11_2020)
+```
+
+# EXERCISES (PART 1)
+
+#03_13_2020
+```{r}
+report_03_13_2020 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-13-2020.csv"))
+
+view(report_03_13_2020)
+str(report_03_13_2020)
+```
+
+```{r}
+usa_report_03_13_2020 <- report_03_13_2020 %>% 
+  filter(`Country/Region` == 'US') %>% 
+  group_by(`Country/Region`) %>% 
+  summarize(Deaths = sum(Deaths))
+
+usa_report_03_13_2020
+```
+
+```{r}
+top10_report_03_13_2020 <- report_03_13_2020 %>% 
+  group_by(`Country/Region`) %>% 
+  summarize(Deaths = sum(Deaths)) %>% 
+  arrange(desc(Deaths)) %>% 
+  slice(1:10)
+
+top10_report_03_13_2020
+```
+
+#9/13/2020
+
+```{r}
+report_09_13_2020 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/09-13-2020.csv")) 
+
+view(report_09_13_2020)
+str(report_09_13_2020)
+```
+
+
+```{r}
+usa_report_09_13_2020 <- report_09_13_2020 %>% 
+  filter(`Country_Region` == 'US') %>% 
+  group_by(`Country_Region`) %>% 
+  summarize(Deaths = sum(Deaths))
+
+usa_report_09_13_2020
+```
+
+```{r}
+top10_report_09_13_2020 <- report_09_13_2020 %>% 
+  group_by(`Country_Region`) %>% 
+  summarize(Deaths = sum(Deaths)) %>% 
+  arrange(desc(Deaths)) %>% 
+  slice(1:10)
+
+top10_report_09_13_2020
+```
+
+
+  From the two data analysis, we see a sudden increase in Deaths in US from
+  47 deaths in march 13th 2020, to 194,071 deaths in September 13th, 2020. It 
+  moved from 7th highest country to 1st in the list of most deaths. Similarly,
+  Brazil and India also had extreme increase in death tolls as it categorized 
+  as 2nd and 3rd highest death tolls respectively. Overall, the list of highest 
+  deaths increased by a lot within 6 months - from approximately 10 - 3200 to approximately 
+  23,000 to 194,000.
+  
+
+# EXERCISE (PART 2)
+
+```{r}
+library(tidyverse)
+```
+
+#03/12/2020
+```{r}
+report_03_12_2020 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-12-2020.csv")) 
+```
+
+# 5. 10 countries with deaths in 03/12/2020
+```{r}
+deaths_top10_report_03_12_2020 <- report_03_12_2020 %>% 
+  group_by(`Country/Region`) %>% 
+  summarize(Deaths = sum(Deaths)) %>% 
+  arrange(desc(Deaths)) %>% 
+  slice(1:10)
+
+deaths_top10_report_03_12_2020
+```
+
+
+```{r}
+
+deaths_top10_report_03_12_2020 %>% 
+  ggplot(mapping = aes(x= `Country/Region`, y =Deaths)) + 
+  geom_jitter(alpha = 0.3, aes(color = "red")) +
+  geom_point() +
+  scale_y_log10() +
+  ggtitle("Top 10 Countries with Deaths in 03/12/2020")
+``` 
+
+# 5. 10 countries with Confirmed in 03/12/2020
+```{r}
+confirmed_top10_report_03_12_2020 <- report_03_12_2020 %>% 
+  group_by(`Country/Region`) %>% 
+  summarize(Confirmed = sum(Confirmed)) %>% 
+  arrange(desc(Confirmed)) %>% 
+  slice(1:10)
+
+confirmed_top10_report_03_12_2020
+```
+
+
+```{r}
+
+confirmed_top10_report_03_12_2020 %>% 
+  ggplot(mapping = aes(x= `Country/Region`, y =Confirmed)) + 
+  geom_jitter(alpha = 0.3, aes(color = "red")) +
+  geom_point() +
+  scale_y_log10() +
+  ggtitle("Top 10 Countries with Confirmed in 03/12/2020")
+``` 
+
+
+#09/12/2020
+```{r}
+report_09_12_2020 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/09-12-2020.csv")) 
+```
+
+# 5. 10 countries with deaths in 09/12/2020
+```{r}
+deaths_top10_report_09_12_2020 <- report_09_12_2020 %>% 
+  group_by(`Country_Region`) %>% 
+  summarize(Deaths = sum(Deaths)) %>% 
+  arrange(desc(Deaths)) %>% 
+  slice(1:10)
+
+deaths_top10_report_09_12_2020
+```
+
+
+```{r}
+
+deaths_top10_report_09_12_2020 %>% 
+  ggplot(mapping = aes(x= `Country_Region`, y =Deaths)) + 
+  geom_jitter(alpha = 0.3, aes(color = "red")) +
+  geom_point() +
+  scale_y_log10() +
+  ggtitle("Top 10 Countries with Deaths in 09/12/2020")
+``` 
+
+# 5. 10 countries with Confirmed in 03/12/2020
+```{r}
+confirmed_top10_report_09_12_2020 <- report_09_12_2020 %>% 
+  group_by(`Country_Region`) %>% 
+  summarize(Confirmed = sum(Confirmed)) %>% 
+  arrange(desc(Confirmed)) %>% 
+  slice(1:10)
+
+confirmed_top10_report_09_12_2020
+```
+
+
+```{r}
+confirmed_top10_report_09_12_2020 %>% 
+  ggplot(mapping = aes(x= `Country_Region`, y =Confirmed)) + 
+  geom_jitter(alpha = 0.3, aes(color = "red")) +
+  geom_point() +
+  scale_y_log10() +
+  ggtitle("Top 10 Countries with Confirmed in 09/12/2020")
+``` 
+
+# 6. 10 States in 3/12/2020
+
+```{r}
+deaths_top10_states_report_03_12_2020 <- report_03_12_2020 %>% 
+  group_by(`Province/State`) %>% 
+  summarize(Deaths = sum(Deaths)) %>% 
+  arrange(desc(Deaths)) %>% 
+  slice(1:10)
+
+deaths_top10_states_report_03_12_2020
+```
+
+```{r}
+deaths_top10_states_report_03_12_2020 %>% 
+  ggplot(mapping = aes(x= `Province/State`, y =Deaths)) + 
+  geom_jitter(alpha = 0.3, aes(color = "red")) +
+  geom_bar(stat='identity') +
+  ggtitle("Top 10 States with Deaths in 03/12/2020")
+``` 
+
+```{r}
+confirmed_top10_states_report_03_12_2020 <- report_03_12_2020 %>% 
+  group_by(`Province/State`) %>% 
+  summarize(Confirmed = sum(Confirmed)) %>% 
+  arrange(desc(Confirmed)) %>% 
+  slice(1:10)
+
+confirmed_top10_states_report_03_12_2020
+```
+
+```{r}
+confirmed_top10_states_report_03_12_2020 %>% 
+  ggplot(mapping = aes(x= `Province/State`, y =Confirmed)) + 
+  geom_jitter(alpha = 0.3, aes(color = "red")) +
+  geom_bar(stat='identity') +
+  ggtitle("Top 10 States with Confirmed Cases in 03/12/2020")
+``` 
+
+
+# 6. 10 States in 09/12/2020
+
+```{r}
+deaths_top10_states_report_09_12_2020 <- report_09_12_2020 %>% 
+  group_by(`Province_State`) %>% 
+  summarize(Deaths = sum(Deaths)) %>% 
+  arrange(desc(Deaths)) %>% 
+  slice(1:10)
+
+deaths_top10_states_report_09_12_2020
+```
+
+```{r}
+deaths_top10_states_report_09_12_2020 %>% 
+  ggplot(mapping = aes(x= `Province_State`, y =Deaths)) + 
+  geom_jitter(alpha = 0.3, aes(color = "red")) +
+  geom_bar(stat='identity') +
+  ggtitle("Top 10 States with Deaths in 09/12/2020")
+``` 
+
+```{r}
+confirmed_top10_states_report_09_12_2020 <- report_09_12_2020 %>% 
+  group_by(`Province_State`) %>% 
+  summarize(Confirmed = sum(Confirmed)) %>% 
+  arrange(desc(Confirmed)) %>% 
+  slice(1:10)
+
+confirmed_top10_states_report_09_12_2020
+```
+
+```{r}
+confirmed_top10_states_report_09_12_2020 %>% 
+  ggplot(mapping = aes(x= `Province_State`, y =Confirmed)) + 
+  geom_jitter(alpha = 0.3, aes(color = "red")) +
+  geom_bar(stat='identity') +
+  ggtitle("Top 10 States with Confirmed Cases in 09/12/2020")
+``` 

@@ -1,0 +1,77 @@
+---
+title: "lab4a"
+author: "Sanyam Shilpakar"
+date: "9/14/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+surveys_complete <- read_csv("data/surveys_complete.csv")
+
+```
+
+
+```{r}
+survey_plot = ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) 
+survey_plot + geom_point()
+```
+
+# Challenge 1
+
+```{r}
+library(hexbin)
+survey_plot + geom_hex()
+
+```
+
+  compared to scatter plot, hexagonal bin plot is nicer looking but it is not granular.
+
+```{r}
+ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +
+    geom_point(alpha = 0.1, aes(color = species_id))
+```
+
+# Challenge 2
+
+```{r}
+ggplot(data = surveys_complete, aes(x = species_id, y = weight)) +
+    geom_point(aes(color = plot_type))
+```
+
+
+```{r}
+ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_boxplot()
+```
+```{r}
+ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_boxplot(alpha = 0) +
+    geom_jitter(alpha = 0.3, color = "tomato")
+```
+
+
+```{r}
+ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_violin(alpha = 0) +
+    geom_jitter(alpha = 0.3, color = "tomato") +
+    scale_y_log10()
+    
+```
+
+
+```{r}
+surveys_complete %>% 
+ggplot(mapping = aes(x= species_id, y = hindfoot_length)) + 
+  geom_jitter(alpha = 0.3, aes(color = as.factor(plot_id))) +
+  geom_boxplot() +
+   scale_y_log10()
+```
+
