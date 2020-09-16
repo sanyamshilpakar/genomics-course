@@ -6,23 +6,53 @@ output:
 
 ![](/Users/sanyamshilpakar/Desktop/My Docs/R workspace/Day 1 Bio 597GE/Blanchard_EvoGeno/images/githubHeader.png)
 
-![](/Users/sanyamshilpakar/Desktop/My Docs/R workspace/Day 1 Bio 597GE/Blanchard_EvoGeno/images/evolution.gif)
+
+<center>
+
+![](/Users/sanyamshilpakar/Desktop/My Docs/R workspace/Day 1 Bio 597GE/Blanchard_EvoGeno/images/evolution.gif) ![](/Users/sanyamshilpakar/Desktop/My Docs/R workspace/Day 1 Bio 597GE/Blanchard_EvoGeno/images/evolution.gif)
+
+</center>
+
+
+
 
 This is rendering html files from the course repository (https://github.com/sanyamshilpakar/genomics-course) for Evolutionary Genomics & Bioinformatics taught at the University of Massachusetts Amherst in Fall 2020 by Prof. Jeffery Blanchard
 
-# List of labs are found here: 
 
 
-### Labs 1 and 2
-[lab1_SanyamShilpakar](lab2_EvoGeno.html) 
 
-### Lab 3
-[Lab3_A](Lab3_A.html)
+<center>
+# LIST OF ALL LABS:
+</center>
 
-[Lab3_B](Lab3_B.html)
 
-### Lab 4
-[lab4_exercises](lab4_exercises.html)
 
-[lab4A](lab4A.html)
+<table style="width:100%" border= "1">
+<caption> Labs with date: </caption>
+  <tr>
+    <th>Lab</th>
+    <th>1st Link to lab</th>
+    <th>2nd Link to lab</th>
+    <th>Date</th> 
+  </tr>
+  <tr>
+    <td>Labs 1 and 2</td>
+    <td>[lab1_SanyamShilpakar](lab2_EvoGeno.html)</td>
+    <td>N/A</td>
+    <td>Wednesday, September 2nd</td>
+  </tr>
+  <tr>
+    <td>Lab 3</td>
+    <td>[Lab3_A](Lab3_A.html)</td>
+    <td>[Lab3_B](Lab3_B.html)</td>
+    <td>Wednesday, September 9th</td>
+  </tr>
+  <tr>
+    <td>Lab 4</td>
+    <td>[lab4_exercises](lab4_exercises.html)</td>
+    <td>[lab4A](lab4A.html)</td>
+    <td>Wednesday, September 14th</td>
+  </tr>
+</table> 
+
 
