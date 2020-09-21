@@ -53,6 +53,12 @@ This is rendering html files from the course repository (https://github.com/sany
     <td>[lab4A](lab4A.html)</td>
     <td>Wednesday, September 14th</td>
   </tr>
+  <tr>
+    <td>Lab 5</td>
+    <td>not ready</td>
+    <td>[lab4A](lab4A.html)</td>
+    <td>Wednesday, September 14th</td>
+  </tr>
 </table> 
 
 
