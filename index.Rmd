@@ -55,7 +55,7 @@ This is rendering html files from the course repository (https://github.com/sany
   </tr>
   <tr>
     <td>Lab 5</td>
-    <td>not ready</td>
+    <td>[lab5_JoinedTables.Rmd](lab5_JoinTables.html)</td>
     <td>1. [lab4_complete.Rmd](lab4_complete.html) 
     2. [extraLab5.Rmd](extraLab5.html)</td>
     <td>Wednesday, September 23rd</td>
