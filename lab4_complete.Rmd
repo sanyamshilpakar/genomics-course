@@ -1,0 +1,258 @@
+---
+title: "lab4a"
+author: "Sanyam Shilpakar"
+date: "9/14/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+surveys_complete <- read_csv("data/surveys_complete.csv")
+
+```
+
+
+```{r}
+survey_plot = ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) 
+survey_plot + geom_point()
+```
+
+# Challenge 1
+
+```{r}
+library(hexbin)
+survey_plot + geom_hex()
+
+```
+
+  compared to scatter plot, hexagonal bin plot is nicer looking but it is not granular.
+
+```{r}
+ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +
+    geom_point(alpha = 0.1, aes(color = species_id))
+```
+
+# Challenge 2
+
+```{r}
+ggplot(data = surveys_complete, aes(x = species_id, y = weight)) +
+    geom_point(aes(color = plot_type))
+```
+
+
+```{r}
+ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_boxplot()
+```
+```{r}
+ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_boxplot(alpha = 0) +
+    geom_jitter(alpha = 0.3, color = "tomato")
+```
+
+
+```{r}
+ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_violin(alpha = 0) +
+    geom_jitter(alpha = 0.3, color = "tomato") +
+    scale_y_log10()
+    
+```
+
+
+```{r}
+surveys_complete %>% 
+ggplot(mapping = aes(x= species_id, y = hindfoot_length)) + 
+  geom_jitter(alpha = 0.3, aes(color = as.factor(plot_id))) +
+  geom_boxplot() +
+   scale_y_log10()
+```
+
+```{r}
+yearly_counts <- surveys_complete %>% 
+  count(year, genus)
+```
+
+
+```{r}
+ggplot(data= yearly_counts, aes(x= year, y= n)) + geom_line()
+```
+
+
+```{r}
+ggplot(data= yearly_counts, aes(x= year, y= n, group= genus, color= genus)) + geom_line() 
+```
+
+
+```{r}
+yearly_counts %>% 
+    ggplot(mapping = aes(x = year, y = n, color = genus)) +
+    geom_line()
+```
+
+
+```{r}
+
+yearly_counts_graph <- surveys_complete %>%
+    count(year, genus) %>% 
+    ggplot(mapping = aes(x = year, y = n, color = genus)) +
+    geom_line()
+
+yearly_counts_graph
+```
+
+
+```{r}
+ggplot(data= yearly_counts, aes(x= year, y= n)) + 
+  geom_line() +
+  facet_wrap(facets = vars(genus))
+```
+
+
+```{r}
+year_sex_count <- surveys_complete %>% 
+  count(year, genus, sex)
+```
+
+
+```{r}
+ggplot(data= year_sex_count, mapping = aes(x= year, y= n, color= sex)) + 
+  geom_line() +
+  facet_wrap(facets = vars(genus))
+```
+
+
+```{r}
+ggplot(data= year_sex_count, mapping = aes(x= year, y= n, color= sex)) + 
+  geom_line() +
+  facet_grid(rows = vars(sex), cols = vars(genus))
+```
+
+
+```{r}
+ggplot(data= year_sex_count, mapping = aes(x= year, y= n, color= sex)) + 
+  geom_line() +
+  facet_grid(rows = vars(genus))
+```
+
+
+```{r}
+ggplot(data= year_sex_count, mapping = aes(x= year, y= n, color= sex)) + 
+  geom_line() +
+  facet_grid(cols = vars(genus))
+```
+
+
+```{r}
+ggplot(data= year_sex_count, mapping = aes(x= year, y= n, color= sex)) + 
+  geom_line() +
+  facet_wrap(facets = vars(genus)) +
+  theme_bw()
+```
+
+
+```{r}
+avg_weight_yearly <- surveys_complete %>% 
+  group_by(year, species_id) %>% 
+  summarize(avg_weight = mean(weight))
+```
+
+# Challenge 3
+
+```{r}
+ggplot(data= avg_weight_yearly, mapping = aes(x= year, y= avg_weight)) +
+  geom_line() + 
+  facet_wrap(facets = vars(species_id)) +
+  theme_bw()
+```
+
+
+```{r}
+ggplot(data= year_sex_count, mapping = aes(x= year, y= n, color= sex)) + 
+  geom_line() +
+  facet_wrap(facets = vars(genus)) +
+  theme_bw() +
+  labs(title= "Observed genera through time", 
+       x= "Years of observation", 
+       y= "Numbers of individuals")
+```
+
+
+```{r}
+ggplot(data= year_sex_count, mapping = aes(x= year, y= n, color= sex)) + 
+  geom_line() +
+  facet_wrap(facets = vars(genus)) +
+  theme_bw() +
+  labs(title= "Observed genera through time", 
+       x= "Years of observation", 
+       y= "Numbers of individuals") +
+  theme(text = element_text(size = 15))
+```
+
+
+```{r}
+ggplot(data = year_sex_count, mapping = aes(x = year, y = n, color = sex)) +
+    geom_line() +
+    facet_wrap(vars(genus)) +
+    labs(title = "Observed genera through time",
+        x = "Year of observation",
+        y = "Number of individuals") +
+    theme_bw() +
+    theme(axis.text.x = element_text(colour = "grey20", size = 12, angle = 90, hjust = 0.5, vjust = 0.5), axis.text.y = element_text(colour = "grey20", size = 6), strip.text = element_text(face = "italic"), text = element_text(size = 16))
+```
+
+```{r}
+grey_theme <- theme(axis.title.x = element_text(colour="grey20", size = 12, angle = 90, hjust = 0.5, vjust = 0.5), axis.title.y = element_text(colour= "grey20", size= 12), text = element_text(size = 16)) 
+
+ggplot(surveys_complete, aes(x= species_id, y= hindfoot_length)) +
+         geom_boxplot() +
+         grey_theme
+```
+
+# Challenge 4
+
+```{r}
+grey_theme <- theme(axis.title.x = element_text(colour="grey20", size = 12, hjust = 0.5, vjust = 0.5), axis.title.y = element_text(colour= "grey20", size= 12), text = element_text(size = 16)) 
+
+ggplot(surveys_complete, aes(x= species_id, y= weight, color= sex)) +
+         geom_boxplot() +
+         grey_theme +
+  labs(title= "Boxplot of Weight vs species_id", x="Species ID", y= "Weights") 
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
