@@ -63,7 +63,7 @@ This is rendering html files from the course repository (https://github.com/sany
    <tr>
     <td>Lab 6</td>
     <td>[lab6.Rmd](lab6.html)</td>
-    <td>N/A</td>
+    <td>NA</td>
     <td>Wednesday, September 28th</td>
   </tr>
 </table> 

@@ -3,7 +3,10 @@ title: "lab6"
 author: "Sanyam Shilpakar"
 date: "9/28/2020"
 output: html_document
+bibliography: data/references.bib
 ---
+
+Application written in R [@JHUCSSE] using the Shiny framework [@JHU]
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -54,11 +57,11 @@ head(daily_report_9_26_2020)
 
 
 ```{r}
-ggplot(daily_report_9_26_2020, aes(x= Long, y= Lat, size= Confirmed/1000))+
+ggplot(daily_report_9_26_2020, aes(x= Long, y= Lat, size= Deaths/1000))+
   borders("world", color= NA, fill= "grey90") +
   theme_bw()+
   geom_point(shape= 21, color= 'purple', fill= 'purple', alpha= 0.5, size= 1)+
-  labs(titles= 'World COVID-19 Confirmed Cases: 9/26/2020', x= '', y= '', size= "Counts (x1000))")+
+  labs(titles= 'World COVID-19 Deaths: 9/26/2020', x= '', y= '', size= "Counts (x1000))")+
   theme(legend.position = "right") +
   coord_fixed(ratio= 1.1)
 ```
@@ -554,5 +557,9 @@ matter? States which were considered "safe" initially tend to loosen up in
 terms of social distancing and other safety measures, therefore, resulting
 in such a shift.
 _------------------------------------------------------------------------------
+
+
+
+# REFERENCE
 
 
