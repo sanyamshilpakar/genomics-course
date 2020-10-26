@@ -1,0 +1,522 @@
+---
+title: "lab9"
+author: "Sanyam Shilpakar"
+date: "10/26/2020"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 14.3 Matching patterns with regular expressions
+
+```{r}
+library(stringr)
+library(tidyverse)
+```
+
+# 14.3.1
+
+```{r}
+x <- c("apple", "banana", "pear")
+str_view(x, "an")
+```
+
+
+```{r}
+x <- c("apple", "banana", "pear")
+str_view(x, ".a.")
+```
+
+
+```{r}
+dot <- "\\."
+writeLines(dot)
+```
+
+## looking for an explicit .
+```{r}
+x <- c("abc", "a.c", "bef")
+str_view(x, "a\\.c")
+```
+
+
+```{r}
+x <- "a\\b"
+writeLines(x)
+```
+
+
+## for a literal match to \
+```{r}
+str_view(x, "\\\\")
+```
+
+# 14.3.1.1 Exercise 
+
+"\" does not match \ because \ is used as an escape for a new character in regular expressions. 
+"\\" will results in '\' which will then act as an escape for the new character. 
+In "\\\", the first two backlashes will result in '\' in a regular expression and the remaining third backlash will act as an escape for the new character.
+
+
+# 14.3.2 Anchors
+
+"^" to match start of string
+"$" to match end of a string
+
+```{r}
+x <- c("apple", "banana", "pear")
+str_view(x, "^a")
+```
+
+
+```{r}
+str_view(x, "a$")
+```
+
+
+```{r}
+x <- c("apple pie", "apple", "apple cake")
+str_view(x, "apple")
+```
+
+
+```{r}
+str_view(x, "apple$")
+```
+
+# 14.3.2.1 Exercise
+
+```{r}
+y <- c("Sanyam$^$, Shil$^$pakar")
+str_view(y, "\\$\\^\\$")
+```
+
+
+# 14.3.3 Character classes and alternatives 
+
+```{r}
+x <- c("abc", "a.c", "a*c", "a c")
+str_view(x, "a[.]c")
+```
+
+
+```{r}
+str_view(x, ".[*]c")
+```
+
+
+```{r}
+str_view(x, "a[ ]")
+```
+
+
+```{r}
+x <- c("color", "colour")
+str_view(x, "colo(|u)r")
+```
+
+# 14.3.3.1 Exercise
+
+```{r}
+z <- c("apple", "sanyam", "cry", "owned", "reed", "coding", "compromise")
+```
+
+```{r}
+# Start with a vowel.
+str_view(z, "^[aeiou]")
+```
+
+
+```{r}
+# That only contain consonants. (Hint: thinking about matching “not”-vowels.)
+str_view(z, "[aeiou]", match = FALSE)
+```
+
+
+```{r}
+# End with ed, but not with eed.
+str_view(z, "[^e]ed$")
+```
+
+
+```{r}
+# End with ing or ise.
+z <- c("reed", "coding", "compromise", "yaisg")
+str_view(z, "i(ng|se)$")
+```
+
+# 14.3.4 Repetition
+
+```{r}
+x <- "1888 is the longest year in Roman numerals: MDCCCLXXXVIII"
+str_view(x, "CC?")
+```
+
+
+```{r}
+str_view(x, "CC+")
+```
+
+```{r}
+str_view(x, 'C[LX]+')
+```
+
+
+```{r}
+str_view(x, "C{2}")
+```
+
+
+```{r}
+str_view(x, "C{2,}")
+```
+
+
+```{r}
+str_view(x, 'C{2,3}?')
+```
+
+
+```{r}
+str_view(x, 'C[LX]+?')
+```
+
+
+# 14.3.4.1 Exercise
+
+## Describe the equivalents of ?, +, * in {m,n} form.
+
+? is equivalent to {0, 1} which means match at most 1
+
++ is equivalent to {1,} which means match 1 or more than 1
+
+* is equivalent to {0,} which means match 0 or more
+
+
+
+# 14.3.5 Grouping and backreferences
+
+```{r}
+str_view(fruit, "(..)\\1", match = TRUE)
+```
+
+# 14.3.5.1 Exercises
+
+1.  `(.)\1\1` : same character three times in a row.
+
+2.  `"(.)(.)\\2\\1"`: A pair of characters followed by the same pair of characters in reversed order.
+
+3.  `(..)\1`: Any two characters repeated.
+
+4.  `"(.).\\1.\\1"`: A character followed by any character, the original character, any other character, the original character again.
+
+5.  `"(.)(.)(.).*\\3\\2\\1"`: Three characters followed by zero or more characters of any kind followed by the same three characters but in reverse order.
+
+
+# 14.4 Tools
+
+# 14.4.1 Detect matches
+
+```{r}
+x <- c("apple", "banana", "pear")
+str_detect(x, "e")
+```
+
+
+```{r}
+# words that start with t
+sum(str_detect(words, "^t"))
+```
+
+
+```{r}
+# What proportion of common words end with a vowel?
+mean(str_detect(words, "[aeiou]$"))
+```
+
+
+```{r}
+# Find all words containing at least one vowel, and negate
+no_vowels_1 <- !str_detect(words, "[aeiou]")
+```
+
+```{r}
+# Find all words consisting only of consonants (non-vowels)
+no_vowels_2 <- str_detect(words, "^[^aeiou]+$")
+identical(no_vowels_1, no_vowels_2)
+```
+
+
+```{r}
+words[str_detect(words, "x$")]
+```
+
+
+```{r}
+df <- tibble(
+  word = words, 
+  i = seq_along(word)
+)
+df %>% 
+  filter(str_detect(word, "x$"))
+```
+
+
+```{r}
+x <- c("apple", "banana", "pear")
+str_count(x, "a")
+sum(str_count(x, "a"))
+```
+
+
+```{r}
+mean(str_count(words, "[aeiou]"))
+```
+
+
+```{r}
+df %>% 
+  mutate(
+    vowels = str_count(word, "[aeiou]"),
+    consonants = str_count(word, "[^aeiou]")
+  )
+```
+
+
+```{r}
+str_count("abababa", "aba")
+```
+
+
+```{r}
+str_view_all("abababa", "aba")
+```
+
+
+# 14.4.1.1 Exercise
+
+```{r}
+words[str_detect(words, "^x|x$")]
+```
+
+
+```{r}
+# Find all words that start with a vowel and end with a consonant.
+start <- str_detect(words, "^[aeiou]")
+end <- str_detect(words,"[^aeiou]$")
+words[start & end] 
+```
+
+```{r}
+# Are there any words that contain at least one of each different vowel?
+
+str_view(words, "aeiou")
+```
+
+
+# 14.4.2 Extract matches
+
+```{r}
+length(sentences)
+head(sentences)
+```
+
+
+```{r}
+colours <- c("red", "orange", "yellow", "green", "blue", "purple")
+colour_match <- str_c(colours, collapse = "|")
+colour_match
+```
+
+
+```{r}
+has_colour <- str_subset(sentences, colour_match)
+matches <- str_extract(has_colour, colour_match)
+head(matches)
+```
+
+
+```{r}
+has_colour
+```
+
+
+```{r}
+more <- sentences[str_count(sentences, colour_match) > 1]
+str_view_all(more, colour_match)
+```
+
+
+```{r}
+str_extract(more, colour_match)
+```
+
+
+```{r}
+str_extract_all(more, colour_match)
+```
+
+
+```{r}
+str_extract_all(more, colour_match, simplify = TRUE)
+```
+
+```{r}
+str_extract_all(x, "[a-z]", simplify = TRUE)
+```
+
+
+# 14.4.2.1 Exercises
+
+```{r}
+# original color match pattern
+colours <- c("red", "orange", "yellow", "green", "blue", "purple")
+colour_match <- str_c(colours, collapse = "|")
+```
+
+
+```{r}
+colour_match2 <- str_c("\\b(", str_c(colours, collapse = "|"), ")\\b")
+colour_match2
+```
+
+
+```{r}
+more2 <- sentences[str_count(sentences, colour_match) > 1]
+```
+
+
+```{r}
+str_view_all(more2, colour_match2, match = TRUE)
+```
+
+# 14.4.3 Grouped matches
+
+```{r}
+noun <- "(a|the) ([^ ]+)"
+
+has_noun <- sentences %>%
+  str_subset(noun) %>%
+  head(10)
+has_noun %>% 
+  str_extract(noun)
+```
+
+
+```{r}
+has_noun %>% 
+  str_match(noun)
+```
+
+
+## tibble lets us name the matches. For ex: article, noun, etc.
+
+```{r}
+tibble(sentence = sentences) %>% 
+  tidyr::extract(
+    sentence, c("article", "noun"), "(a|the) ([^ ]+)", 
+    remove = FALSE
+  )
+```
+
+
+# 14.4.3.1 Exercises
+
+```{r}
+tibble(sentence = sentences) %>% 
+  tidyr::extract(
+    sentence, c("number", "word"), "(one|two|three|four|five|six|seven|eight|nine|ten) ([^ ]+)",
+    remove= FALSE
+  )
+```
+
+# 14.4.4 Replacing matches
+
+```{r}
+# only first vowel of the word
+x <- c("apple", "pear", "banana")
+str_replace(x, "[aeiou]", "-")
+```
+
+
+```{r}
+# all vowels in a word
+str_replace_all(x, "[aeiou]", "-")
+```
+
+
+```{r}
+x <- c("1 house", "2 cars", "3 people")
+str_replace_all(x, c("1" = "one", "2" = "two", "3" = "three"))
+```
+
+
+```{r}
+sentences %>% 
+  str_replace("([^ ]+) ([^ ]+) ([^ ]+)", "\\1 \\3 \\2") %>% 
+  head(5)
+```
+
+
+# 14.4.4.1 Exercises
+
+```{r}
+str_replace_all("hey/there/how/you/doing", "/", "\\\\")
+```
+
+
+# 14.4.5 Splitting
+
+```{r}
+sentences %>%
+  head(5) %>% 
+  str_split(" ")
+```
+
+
+```{r}
+"a|b|c|d" %>% 
+  str_split("\\|") %>% 
+  .[[1]]
+```
+
+
+```{r}
+sentences %>%
+  head(5) %>% 
+  str_split(" ", simplify = TRUE)
+```
+
+
+```{r}
+fields <- c("Name: Hadley", "Country: NZ", "Age: 35")
+fields %>% str_split(": ", n = 2, simplify = TRUE)
+```
+
+```{r}
+x <- "This is a sentence.  This is another sentence."
+str_view_all(x, boundary("word"))
+```
+
+
+```{r}
+str_split(x, " ")[[1]]
+```
+
+
+```{r}
+str_split(x, boundary("word"))[[1]]
+```
+
+
+# 14.4.5.1 Exercise 
+
+```{r}
+s <- "apples, pears, and bananas"
+str_split(s, boundary("word"))[[1]]
+```
+
+
