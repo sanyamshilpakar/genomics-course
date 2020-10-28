@@ -1,0 +1,175 @@
+---
+title: "lab9x"
+author: "Sanyam Shilpakar"
+date: "10/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# if statements
+
+```{r}
+if(2 < 4){
+  print("R nows how to do math :D")
+}
+```
+
+
+```{r}
+if(2 > 4){
+  print("R nows how to do math :D")
+}else {
+  print("that was tricky phew")
+}
+```
+
+
+```{r}
+if(2 > 4){
+  print("R nows how to do math :D")
+} else if(6 %% 2  == 0){
+  print("R can find remainders too???")
+} else {
+  print("that was tricky phew")
+}
+```
+
+
+```{r}
+x <- runif(1, 0, 10)  
+if(x > 3) {
+        y <- 10
+} else {
+        y <- 0
+}
+print(y)
+```
+
+
+# for loops
+
+```{r}
+for(i in 1:5){
+  print(i)
+}
+```
+
+
+```{r}
+thisclass <- c("B", "I", "O", "L", "O", "G", "Y")
+for(lett in 1:7){
+  print(thisclass[lett])
+}
+```
+
+
+```{r}
+for(lett in seq_along(thisclass)){
+  print(thisclass[lett])
+}
+```
+
+# Nested for loops
+
+```{r}
+x <- matrix(1:6, 2, 3)
+for(i in seq_len(nrow(x))) {
+        for(j in seq_len(ncol(x))) {
+                print(x[i, j])
+        }   
+}
+```
+
+
+# while loops
+
+```{r}
+count <- 0
+while(count < 10) {
+        print(count)
+        count <- count + 1
+}
+```
+
+
+```{r}
+z <- 5
+set.seed(1)
+while(z >= 3 && z <= 10) {
+        coin <- rbinom(1, 1, 0.5)
+        
+        if(coin == 1) {  ## random walk
+                z <- z + 1
+        } else {
+                z <- z - 1
+        } 
+}
+print(z)
+```
+
+
+# Function
+
+```{r}
+f <- function(num){
+  for(i in seq_len(num)){
+  cat("hello, world!\n")
+  }
+}
+f(5)
+```
+
+
+```{r}
+f <- function(num) {
+         hello <- "Hello, world!\n"
+         for(i in seq_len(num)) {
+                 cat(hello)
+         }
+         chars <- nchar(hello) * num
+         chars
+}
+meaningoflife <- f(3)
+```
+
+
+```{r}
+print(meaningoflife)
+```
+
+
+```{r}
+f <- function(num = 1) {
+         hello <- "Hello, world!\n"
+         for(i in seq_len(num)) {
+                 cat(hello)
+         }
+         chars <- nchar(hello) * num
+         chars
+ }
+ f()
+```
+
+
+```{r}
+f(2)
+```
+
+
+```{r}
+f(num = 2)
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
