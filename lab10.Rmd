@@ -1,0 +1,323 @@
+---
+title: "lab10"
+author: "Sanyam Shilpakar"
+date: "11/2/2020"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Part 1: Reading VCF data
+
+What is a VCF file?
+  A VCF file can be thought of as having three sections: a vcf header, a fix region and a gt region. The VCF meta region is located at the top of the file and contains meta-data describing the body of the file. Each VCF meta line begins with a ‘##’. The information in the meta region defines the abbreviations used elsewhere in the file. 
+The VCF file specification is flexible. This means that there are slots for certain types of data, but any particular software which creates a VCF file does not necessarily use them all. Similarly, authors have the opportunity to include new forms of data, forms which may not have been foreseen by the authors of the VCF specification. The result is that all VCF files do not contain the same information.
+
+```{r}
+library(vcfR)
+```
+
+the usage of data() loads objects 'gff', 'dna', and 'vcf' from the vcfR_example dataset. In this lab, we are only interested in 'vcf' object.
+
+```{r}
+data(vcfR_example)
+vcf
+```
+
+
+# The meta region
+
+info about file and its creation as well as about abbreviation used in other file.
+
+```{r}
+strwrap(vcf@meta[1:7])
+```
+
+The meta region may include long lines that may not be easy to view. In vcfR we’ve created a function to help press this data.
+
+```{r}
+queryMETA(vcf)
+```
+
+
+```{r}
+queryMETA(vcf, element = 'DP')
+```
+
+When an element parameter is included, only the information about that element is returned.
+
+```{r}
+queryMETA(vcf, element = 'FORMAT=<ID=DP')
+```
+
+nice is a parameter in queryMETA that is by default true. it makes the meta format easier to read. since we are computing on the actual raw, we can look at the raw data by doing nice = FALSE.
+
+
+# The fix region
+
+The fix region contains information for each variant which is sometimes summarized over all samples.The first eight columns of the fixed region are titled CHROM, POS, ID, REF, ALT, QUAL, FILTER and INFO. This is per variant information which is ‘fixed’, or the same, over all samples. The first two columns indicate the location of the variant by chromosome and position within that chromosome. The REF and ALT columns indicate the reference and alternate allelic states for a diploid sample. When multiple alternate allelic states are present they are delimited with commas. The QUAL column attempts to summarize the quality of each variant over all samples. The FILTER field is not used here but could contain information on whether a variant has passed some form of quality assessment.
+
+```{r}
+head(getFIX(vcf))
+```
+
+
+# The gt region
+
+The gt (genotype) region contains information about each variant for each sample. The format of the data is specified by the FORMAT column (column nine). Here we see that we have information for GT, AD, DP, GQ and PL. The definition of these acronyms can be referenced by querying the the meta region, as demonstrated previously. Every variant does not necessarily have the same information (e.g., SNPs and indels may be handled differently), so the rows are best treated independently. Different variant callers may include different information in this region.
+
+```{r}
+vcf@gt[1:6, 1:4]
+```
+
+# vcfR
+
+```{r}
+vcf <- read.vcfR("data/pinfsc50_filtered.vcf.gz")
+```
+
+
+```{r}
+head(vcf)
+```
+
+
+```{r}
+write.vcf(vcf, "myVCFdata_filtered.vcf.gz")
+```
+
+# Exercise Part 1
+
+## 1
+```{r}
+?read.vcfR
+```
+
+## 2
+```{r}
+queryMETA(vcf, element = 'AD')
+```
+
+## 3
+```{r}
+tail(vcf@fix)
+```
+
+## 4
+```{r}
+plot(vcf)
+```
+
+## 5
+```{r}
+## sample names
+colnames(vcf@gt)
+```
+
+
+# Part 2: Analysis of Genomic Data
+
+```{r}
+vcf <- read.vcfR("data/pinfsc50_filtered.vcf.gz")
+vcf
+```
+
+# Converting VCF data into genlight object
+
+```{r}
+x <- vcfR2genlight(vcf)
+```
+
+
+```{r}
+x
+```
+
+## vcfR
+```{r}
+gt <- extract.gt(vcf, element = "GT")
+gt[c(2,6,18), 1:3]
+```
+
+## genlight
+```{r}
+t(as.matrix(x))[c(1,5,17), 1:3]
+```
+
+
+```{r}
+library(adegenet)
+```
+
+
+```{r}
+pop(x) <- as.factor(c("us", "eu", "us", "af", "eu", "us", "mx", "eu", "eu", "sa", "mx", "sa", "us", "sa", "Pmir", "us", "eu", "eu"))
+popNames(x)
+```
+
+Here we’ll set the ploidy of all the samples in the genlight object to the same ploidy.
+
+```{r}
+ploidy(x) <- 2
+```
+
+
+# Distance matrices
+
+Let’s create a pairwise genetic distance matrix for individuals or populations (i.e., groups of individuals).
+
+To summarize, we can create a distance matrix from a genlight object using dist():
+
+```{r}
+x.dist <- dist(x)
+```
+
+
+```{r}
+x.dist <- poppr::bitwise.dist(x)
+```
+
+
+# Creating chromR objects
+
+```{r}
+# Find files
+vcf_file <- system.file("extdata", "pinf_sc50.vcf.gz", package = "pinfsc50")
+dna_file <- system.file("extdata", "pinf_sc50.fasta", package = "pinfsc50")
+gff_file <- system.file("extdata", "pinf_sc50.gff", package = "pinfsc50")
+```
+
+
+```{r}
+# Input the files
+vcf <- read.vcfR(vcf_file, verbose = FALSE)
+dna <- ape::read.dna(dna_file, format = "fasta")
+gff <- read.table(gff_file, sep="\t", quote="")
+```
+
+
+```{r}
+# create chromR object
+chrom <- create.chromR(name="Supercontig", vcf=vcf, seq=dna, ann=gff, verbose=TRUE)
+```
+
+
+```{r}
+chrom
+```
+
+
+```{r}
+plot(chrom)
+```
+
+
+```{r}
+chromoqc(chrom, dp.alpha = 66)
+```
+
+
+# Processing chromR objects
+
+```{r}
+chrom <- proc.chromR(chrom, verbose = TRUE)
+```
+
+
+```{r}
+plot(chrom)
+```
+
+
+```{r}
+chromoqc(chrom, dp.alpha = 66)
+```
+
+
+```{r}
+#vcf <- read.vcfR("pinfsc50_qc.vcf.gz", verbose = FALSE)
+vcf <- read.vcfR("data/pinfsc50_filtered.vcf.gz", verbose = FALSE)
+chrom <- create.chromR(name="Supercontig", vcf=vcf, seq=dna, ann=gff, verbose=FALSE)
+chrom <- proc.chromR(chrom, verbose = FALSE)
+chromoqc(chrom, dp.alpha = 66)
+```
+
+# Tabular Summaries
+
+```{r}
+head(chrom@var.info)
+```
+
+
+```{r}
+head(chrom@win.info)
+```
+
+# Genetic differentiation
+
+```{r}
+library(vcfR)
+data(vcfR_example)
+pop <- as.factor(c("us", "eu", "us", "af", "eu", "us", "mx", "eu", "eu", "sa", "mx", "sa", "us", "sa", "Pmir", "us", "eu", "eu"))
+myDiff <- genetic_diff(vcf, pops = pop, method = 'nei')
+knitr::kable(head(myDiff[,1:15]))
+```
+
+
+```{r}
+knitr::kable(head(myDiff[,16:19]))
+```
+
+
+```{r}
+knitr::kable(round(colMeans(myDiff[,c(3:9,16,19)], na.rm = TRUE), digits = 3))
+```
+
+
+```{r}
+library(reshape2)
+library(ggplot2)
+
+dpf <- melt(myDiff[,c(3:8,19)], varnames=c('Index', 'Sample'), value.name = 'Depth', na.rm=TRUE)
+```
+
+
+```{r}
+p <- ggplot(dpf, aes(x=variable, y=Depth)) + geom_violin(fill="#2ca25f", adjust = 1.2)
+p <- p + xlab("")
+p <- p + ylab("")
+p <- p + theme_bw()
+p
+```
+
+
+# Exercise Part 2
+
+## 1
+```{r}
+plot(getPOS(vcf), myDiff$Gprimest,  pch = 20, col = "#1E90FF44", xlab = "", ylab = "", ylim = c(0, 1), xaxt = "n")
+axis(side = 1, at = seq(0, 1e5, by = 1e4), labels = seq(0, 100, by = 10))
+title(xlab='Genomic position (Kbp)')
+title(ylab = expression(italic("G'"["ST"])))
+```
+
+## 2
+```{r}
+table(pop)
+```
+
+## 3
+```{r}
+chromoqc(chrom, dp.alpha = 66, xlim = c(2e05, 4e05))
+```
+
+## 4
+```{r}
+queryMETA(vcf)
+```
+
+

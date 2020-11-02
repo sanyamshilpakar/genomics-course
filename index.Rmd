@@ -76,13 +76,19 @@ This is rendering html files from the course repository (https://github.com/sany
     <td>Lab 8</td>
     <td>NA</td>
     <td>NA</td>
-    <td>NAh</td>
+    <td>NA</td>
   </tr>
    <tr>
     <td>Lab 9</td>
     <td>[lab9.Rmd](lab9.html) </td>
     <td>[lab9x.Rmd](lab9x.html) </td>
     <td>Monday, October 26th</td>
+  </tr>
+  <tr>
+    <td>Lab 10</td>
+    <td>[lab10.Rmd](lab10.html) </td>
+    <td>NA</td>
+    <td>Monday, November 2nd</td>
   </tr>
 </table> 
 
