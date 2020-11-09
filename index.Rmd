@@ -90,6 +90,12 @@ This is rendering html files from the course repository (https://github.com/sany
     <td>NA</td>
     <td>Monday, November 2nd</td>
   </tr>
+  <tr>
+    <td>Lab 11</td>
+    <td>[lab11.Rmd](lab11.html) </td>
+    <td>NA</td>
+    <td>Monday, November 9th</td>
+  </tr>
 </table> 
 
 
