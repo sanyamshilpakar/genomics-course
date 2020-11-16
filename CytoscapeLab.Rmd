@@ -1,0 +1,28 @@
+---
+title: "CytoscapeLab"
+author: "Sanyam Shilpakar"
+date: "11/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+# Basic Data Visualization between GAL1, GAL4, GAL80
+
+![](data/BasicDataVisualizationGraph.png)
+
+# Differentially Expressed Gene in Ovarian Cancer
+
+## Example 1
+
+![](data/Example1_StringNetwork.png)
+
+## Example 2
+
+![](data/2_Example2_StringNetwork.png)
+
+

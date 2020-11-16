@@ -96,6 +96,12 @@ This is rendering html files from the course repository (https://github.com/sany
     <td>NA</td>
     <td>Monday, November 9th</td>
   </tr>
+  <tr>
+    <td>Lab 12</td>
+    <td>[CytoscapeLab.Rmd](CytoscapeLab.html) </td>
+    <td>NA</td>
+    <td>Monday, November 16th</td>
+  </tr>
 </table> 
 
 
