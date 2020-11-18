@@ -2,7 +2,10 @@
 title: "CytoscapeLab"
 author: "Sanyam Shilpakar"
 date: "11/16/2020"
-output: html_document
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
 ```{r setup, include=FALSE}
