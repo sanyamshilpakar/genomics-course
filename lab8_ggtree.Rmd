@@ -193,7 +193,7 @@ p
 ![](/Users/sanyamshilpakar/Desktop/My Docs/R workspace/Day 1 Bio 597GE/Blanchard_EvoGeno/images/lab8_ex1_image.png)
 
 # CIPRES tutorial (the two outputs from cipres website is uploaded in the github page below:)
-      ## https://github.com/sanyamshilpakar/genomics-course
+      ## [ https://github.com/sanyamshilpakar/genomics-course ]
 
 
 ```{r}

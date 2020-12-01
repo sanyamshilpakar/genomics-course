@@ -75,7 +75,7 @@ This is rendering html files from the course repository (https://github.com/sany
     <td>Lab 8</td>
     <td>[lab8_ggtree.Rmd](lab8_ggtree.html) </td>
     <td>NA</td>
-    <td>November 30th, Monday</td>
+    <td>Monday, November 30th</td>
   </tr>
    <tr>
     <td>Lab 9</td>
