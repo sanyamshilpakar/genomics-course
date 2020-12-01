@@ -171,7 +171,7 @@ p3 + theme_tree2()
 
 
 ```{r}
-# get phylopic 
+# get
 
 newick <- "((Pongo_abelii,(Gorilla_gorilla_gorilla,(Pan_paniscus,Pan_troglodytes)Pan,Homo_sapiens)Homininae)Hominidae,Nomascus_leucogenys)Hominoidea;"
 

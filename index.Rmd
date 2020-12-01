@@ -15,13 +15,13 @@ output:
 
 
 
-This is rendering html files from the course repository (https://github.com/sanyamshilpakar/genomics-course) for Evolutionary Genomics & Bioinformatics taught at the University of Massachusetts Amherst in Fall 2020 by Prof. Jeffery Blanchard
+This is rendering html files from the course repository (https://github.com/sanyamshilpakar/genomics-course) for Evolutionary Genomics & Bioinformatics taught at the University of Massachusetts Amherst in Fall 2020 by Prof. Jeffery Blanchard.
 
 
 
 
 <center>
-# LIST OF ALL LABS:
+# LIST OF ALL THE LABS:
 </center>
 
 
