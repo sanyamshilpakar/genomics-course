@@ -15,7 +15,6 @@ output:
 
 
 
-
 This is rendering html files from the course repository (https://github.com/sanyamshilpakar/genomics-course) for Evolutionary Genomics & Bioinformatics taught at the University of Massachusetts Amherst in Fall 2020 by Prof. Jeffery Blanchard
 
 
@@ -74,9 +73,9 @@ This is rendering html files from the course repository (https://github.com/sany
   </tr>
    <tr>
     <td>Lab 8</td>
+    <td>[lab8_ggtree.Rmd](lab8_ggtree.html) </td>
     <td>NA</td>
-    <td>NA</td>
-    <td>NA</td>
+    <td>November 30th, Monday</td>
   </tr>
    <tr>
     <td>Lab 9</td>
